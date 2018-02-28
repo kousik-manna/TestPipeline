@@ -61,12 +61,12 @@ stage("Executing On Online Node"){
                         def jobName = currentBuild.fullDisplayName
                         println "${jobName}"
                         //emailext body: '''${SCRIPT, template="groovy-html.template"}''',
-                        emailext body: '''${FILE,path="FinalReport/AllModulesMainAutomatedTestResultIE02_26_20183_34_05PM.html"}''',
-                        mimeType: 'text/html',
-                        subject: "[Jenkins] ${jobName}",
-                        to: "${mailRecipients}",
-                        replyTo: "${mailRecipients}",
-                        recipientProviders: [[$class: 'CulpritsRecipientProvider']]
+                        //emailext body: '''${FILE,path="FinalReport/AllModulesMainAutomatedTestResultIE02_26_20183_34_05PM.html"}''',
+                        //mimeType: 'text/html',
+                        //subject: "[Jenkins] ${jobName}",
+                        //to: "${mailRecipients}",
+                        //replyTo: "${mailRecipients}",
+                        //recipientProviders: [[$class: 'CulpritsRecipientProvider']]
                     }
 
 				}
