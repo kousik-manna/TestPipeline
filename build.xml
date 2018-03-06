@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<project name="Simple Merge xmlFile Example" default="clean" basedir="."> 
+
+<taskdef resource="net/sf/antcontrib/antlib.xml"/>
+
+<target name="merge-results">
+    <delete dir="Report/testng_summary_report"/>
+    <delete file="Report/start-merge.xml" />
+    <delete file="Report/testng-merge.xml" />
+
+    <mkdir dir="Report/testng_summary_report"/>
+    <copy 
+        file="empty-testng-results.xml" 
+        tofile="Report/testng-merge.xml" />
+
+    <for param="xmlFile">
+        <path>
+            <fileset dir="Report" >
+                <include name="**/testng-results.xml" />
+            </fileset>
+        </path>
+
+        <sequential>
+
+            <copy 
+                file="Report/testng-merge.xml" 
+                toFile="Report/start-merge.xml" />
+                <xslt style="testng-merge.xsl"
+                    destdir="Report"
+                    in="Report/start-merge.xml"
+                    out="Report/testng-merge.xml">
+
+                    <param name="with" expression="@{xmlFile}" />
+                </xslt>
+            <delete file="Report/start-merge.xml" /> 
+        </sequential>
+    </for>
+</target>
+</project>

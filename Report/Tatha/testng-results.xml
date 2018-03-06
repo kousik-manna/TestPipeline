@@ -1,0 +1,13 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<suite name = "AIG_Demo">
+  
+ <test name="Module_DMP_M1">
+    <class name="testscripts.scenario.Desktop_6335">
+      <test-method name="runDesktop_6335" finished-at="2018-02-17T16:34:24Z" started-at="2018-01-17T16:34:24Z" status="PASS" />
+    </class>
+    <class name="testscripts.scenario.OneColumn.runOneColumn">
+      <test-method name="runOneColumn" finished-at="2018-02-17T16:34:24Z" started-at="2018-01-17T16:34:24Z" status="PASS" />
+    </class>
+  </test>
+  
+</suite>

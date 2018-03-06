@@ -5,10 +5,20 @@ import java.nio.file.Paths
 stage("Executing On Online Node"){
     if(Jenkins.instance.getNode('Win10Master').toComputer().isOnline()){
         node('Win10Master'){
+            
 			stage("Custom WorkSpace"){
 				ws('H:\\For Kousik') {
 					// some block
 					println "Hi node Win10Master is online"      
+					
+					stage('merge xml') {
+                        def antVersion = 'Ant1.10.1'
+                        withEnv( ["ANT_HOME=${tool antVersion}"] ) {
+                            bat '%ANT_HOME%/bin/ant.bat merge-results'
+                        }
+                    }
+
+					
 					stage("Batch Execution"){
 						bat 'echo "This is a Batch script" '
 						bat 'echo %WORKSPACE%'
@@ -48,7 +58,8 @@ stage("Executing On Online Node"){
 					}
 					
 					stage("Publish TestNGReport"){
-						step([$class: 'Publisher', reportFilenamePattern: '**/H:/GTAF_Framework/GTAF_SELENIUM_V6.3/Libraries/CICD/TestNGReport.xml'])
+						//step([$class: 'Publisher', reportFilenamePattern: '**/H:/GTAF_Framework/GTAF_SELENIUM_V6.3/Libraries/CICD/TestNGReport.xml'])
+						step([$class: 'Publisher', reportFilenamePattern: '**/H:/For Kousik/Report/testng-merge.xml'])
 					}
 					
 					stage("Publish HTML_REPORT"){
@@ -71,6 +82,7 @@ stage("Executing On Online Node"){
 
 				}
 			}
+			
 		}
     }
 }
