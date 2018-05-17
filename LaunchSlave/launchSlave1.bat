@@ -1,0 +1,1 @@
+H:\WS\JDK\jdk1.8.0_152\bin\java.exe -jar H:\WS\LaunchSlave\slave1.jar -jnlpUrl http://PW7AM2XDH400101:8080/computer/NodeJoeTest/slave-agent.jnlp -secret cf53dbbd53ab60a1541169369b0354c614c2a41380f3af89d4f0aa24cfd0bff2 -workDir "C:\Jenkins"

@@ -1,0 +1,1 @@
+H:\WS\JDK\jdk1.8.0_152\bin\java.exe -jar H:\WS\LaunchSlave\slave.jar -jnlpUrl http://10.189.118.0:8080/computer/KousikNode/slave-agent.jnlp -secret 9b7fad7a6be821c0665cc97289baf7b1439cd7085bb967bd4e3ff96675c6a459 -workDir "H:\For Kousik"
