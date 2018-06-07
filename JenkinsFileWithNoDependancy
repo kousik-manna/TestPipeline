@@ -1,4 +1,4 @@
-﻿import groovy.util.XmlParser
+import groovy.util.XmlParser
 import groovy.xml.MarkupBuilder
 import static groovy.io.FileType.FILES
 import javax.xml.transform.TransformerException;
