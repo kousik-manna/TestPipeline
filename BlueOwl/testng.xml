@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite" >
+<test name="Test" parallel="classes" thread-count="5"> 
+ 
+<classes>
+
+	<class name="com.blueowl.xyz.webapp.testcases.AboutYouTest"></class>
+	<class name="com.blueowl.xyz.webapp.testcases.AdditionalVehicleInfoTest"></class>
+	<class name="com.blueowl.xyz.webapp.testcases.ConfirmationTest"></class>
+	<class name="com.blueowl.xyz.webapp.testcases.CoveragesTest"></class>
+	<class name="com.blueowl.xyz.webapp.testcases.DriversTest"></class>
+	<class name="com.blueowl.xyz.webapp.testcases.InviteDriverTest"></class>
+	<class name="com.blueowl.xyz.webapp.testcases.IphoneTest"></class>
+	<class name="com.blueowl.xyz.webapp.testcases.PaymentTest"></class>
+	<class name="com.blueowl.xyz.webapp.testcases.PersonNotFoundTest"></class>
+ 	<class name="com.blueowl.xyz.webapp.testcases.PolicyLabsDocumentsTest"></class> 
+	<class name="com.blueowl.xyz.webapp.testcases.PolicyLabsPaymentTest"></class> 
+ 	<class name="com.blueowl.xyz.webapp.testcases.PolicyLabsTest"></class> 
+ 	<class name="com.blueowl.xyz.webapp.testcases.PolicyLabsTest2"></class> 
+	<class name="com.blueowl.xyz.webapp.testcases.ReadGmailTest"></class>
+	<class name="com.blueowl.xyz.webapp.testcases.ResumeQuoteTest"></class>
+	<class name="com.blueowl.xyz.webapp.testcases.ReviewTest"></class>
+	<class name="com.blueowl.xyz.webapp.testcases.VehiclesTest"></class>
+	
+	<class name="com.blueowl.xyz.eis.testcases.BillingTest"></class>  
+	<class name="com.blueowl.xyz.eis.testcases.CancellationTest"></class>
+	<class name="com.blueowl.xyz.eis.testcases.CustomerInfoTest"></class>
+	<class name="com.blueowl.xyz.eis.testcases.EndorsementTest"></class>
+	<class name="com.blueowl.xyz.eis.testcases.InquiryClueTest"></class>
+	<class name="com.blueowl.xyz.eis.testcases.InquiryDriverTest"></class>
+	<class name="com.blueowl.xyz.eis.testcases.InquiryPremiumAndCoverageTest"></class>
+	<class name="com.blueowl.xyz.eis.testcases.InquiryVehicleTest"></class>
+	<class name="com.blueowl.xyz.eis.testcases.PolicyConsolidatedViewTest"></class>
+		
+	</classes>
+  </test> 
+</suite>
