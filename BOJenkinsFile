@@ -1,0 +1,107 @@
+﻿import groovy.util.XmlParser
+import groovy.xml.MarkupBuilder
+import static groovy.io.FileType.FILES
+import jenkins.model.*
+
+def listXMLPaths = []
+
+stage("CreateXML"){
+    node('master'){
+        
+        //def parser = new XmlParser()
+        def parser = new XmlParser()
+        parser.setFeature( "http://apache.org/xml/features/disallow-doctype-decl", false )
+        parser.setFeature( "http://apache.org/xml/features/nonvalidating/load-external-dtd", false )
+        def writer = new StringWriter()
+        def builder = new MarkupBuilder(writer)
+        
+        String fileContents1 = new File("H:\\For Kousik\\Report\\kousik\\testng.xml").text
+        doc1 = parser.parseText(fileContents1)
+
+        def testName = ""
+        def testParallel = ""
+        def testThreadCount = ""
+            
+        def classCount = 0
+        def className = []
+        doc1.test.each { test ->
+            println "Test Name: ${test.@name}"
+            println "Test parallel: ${test.@parallel}"
+            println "Test thread-count: ${test.@'thread-count'}"
+            testName = "${test.@name}"
+            testParallel = "${test.@parallel}"
+            testThreadCount = "${test.@'thread-count'}"
+
+            test.classes.each{ classesNode ->
+                classesNode.'class'.each{ classNode ->
+    				classCount = classCount + 1
+    				println "class No. ${classCount}: ${classNode.@name}"
+    				className.add("${classNode.@name}")
+                }
+            }
+        }
+        println "class Count before call::::${className.size()}"
+        for(i = 0; i < className.size(); i += 1) {
+            def index = i + 1
+            def filePath = "H:\\For Kousik\\Report\\kousik\\testng${index}.xml"
+            listXMLPaths.add(filePath)
+            def clsName = "${className.get(i)}"
+            createXml(clsName, filePath, testName, testParallel, testThreadCount)
+        }
+        //println "After file creation ${listXMLPaths.get(0)}"        
+        //callTest()
+    }
+}
+
+stage("CallTest"){
+    node('master'){
+        println "After file creation ${listXMLPaths.get(0)}" 
+		def branches = [:] 
+        for(i = 0; i < listXMLPaths.size(); i += 1) {
+            def filepath = "${listXMLPaths.get(i)}"
+			branches["branch_${i}"] = {
+				node ('label'){
+					stage("prebuild${i}"){
+						//bat "echo This is a Batch script for ${listXMLPaths.get(i)} in prebuild step"
+						//sh 'docker ps -a | grep selenium-slavehubreg |awk \'{print $1 }\' | xargs -I {} docker rm {} -f'
+						//sh 'docker pull selenium/hub'
+						//sh 'docker run --privileged -u root:root -d -p 4444:4444 --name selenium-slavehubreg -e "TZ=US/Eastern" -v /dev/shm:/dev/shm selenium/hub'
+						//sh 'docker run --privileged -u root:root -d --link selenium-slavehubreg:hub -e "TZ=US/Eastern"  -v /dev/shm:/dev/shm selenium/node-chrome'
+					}
+					stage("postbuild${i}"){
+						//bat "echo This is a Batch script for ${listXMLPaths.get(i)} in prebuild step"
+						//sh 'docker rm -f selenium-slavehubreg'
+						//sh 'docker ps -a  | grep selenium-slavehubreg | awk \'{print $1 }\' | xargs -I {} docker rm {} -f'
+					}
+				}
+			}
+        }
+		
+		parallel branches
+		
+    }
+}
+
+@NonCPS
+def createXml(String className, String filePath, String testName, String testParallel, String testThreadCount) {
+    //println "class Count::::${className.size()}"
+    
+    //for(i = 0; i < className.size(); i += 1) {
+        //def index = i + 1
+        def fileWriter = new FileWriter("${filePath}")
+        def testBuilder = new MarkupBuilder(fileWriter)
+        
+        testBuilder.suite(name:"Suite") {
+            
+            testBuilder.test(name:"${testName}", parallel:"${testParallel}", 'thread-count':"${testThreadCount}"){
+                testBuilder.classes(){
+                    //testBuilder.class(name:"${className.get(i)}")
+                    testBuilder.class(name:"${className}")
+                }
+            }
+        }
+        //println writer.toString()
+        fileWriter.close();
+    //}
+    
+}
